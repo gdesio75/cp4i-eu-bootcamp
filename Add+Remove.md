@@ -2,7 +2,7 @@
 ----------------
 
 ## To be added
-
+  - generateSecret.sh and all that goes with it. Simply requires files to be placed in to _/home/student_
 
 
 
