@@ -3,8 +3,8 @@ title: European CP4I bootcamp
 toc: false
 sidebar: labs_sidebar
 folder: pots/cipdemo
-permalink: /cip-demo-lab.html
-summary: Prework for IBM Cloud Pak for Integration Bootcamp
+permalink: /add-remove.html
+summary: Things to add/remove to Skytap image
 applies_to: [developer,administrator,consumer]
 ---
 
