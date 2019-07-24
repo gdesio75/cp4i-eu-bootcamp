@@ -19,7 +19,7 @@
   . /home/student/ace-11.0.0.3/server/bin/mqsiprofile
   ```
 
-  - Into directory _/home/student_, place the file _order.json_, and make sure that it is `chmod 666` to make it rw by everyone.
+1. Into directory _/home/student_, place the file _order.json_, and make sure that it is `chmod 666` to make it rw by everyone.
 
 1. Upgrade the ES installation to disable Message Indexing, using the instructions here : https://ibm.github.io/event-streams/administering/modifying-installation/. This will take a couple of minutes.
 
