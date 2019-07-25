@@ -101,7 +101,7 @@ Password-less SSH has also been enabled between the Master Node and the other no
 
  If you can see the ICP Dashboard, then the ICP infrastructure is ready.
 1. You can also tell if the ICP infrastructure is ready by trying to log into it from a command line, thus:
- - On the Master Node, start a Terminal session and execute `sudo cloudctl login`.
+ - On the ICP Master node, start a Terminal session and execute `sudo cloudctl login`.
  - Provide the password for student: **Passw0rd!**.
   - Ensure that the API Endpoint **https://mycluster.icp:8443** is specified (if a different API Endpoint is specified, execute `sudo cloudctl logout` and try again).
  - Provide the ICP4I userID **admin** and password **admin**
@@ -153,24 +153,30 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 1. On the Master Node, start a Terminal session; you will be logged in as `student`.
 1. Change to root thus `su - root` (providing the password for student: **Passw0rd!**).
 1. In the `/root` directory, make a new directory, calling it whatever you like.  Change directories down into that new one.
-2. In that new directory, clone this repository here on the `master` node:  `https://github.com/asimX/FS-CIP-Microservices`.  You do this on the Master Node because you need to load the docker images into ICP.
-1. You might need to authenticate using your github.com account.  If you don't have one, you can sign up for your free one here at `github.com`
-3. Go into the FS-CIP-Microservices directory.
+2. In that new directory, run the following command to clone the FS-CIP-Microservices repository from Github to this new directory:
+
+   ```
+   git clone https://github.com/asimX/FS-CIP-Microservices
+   ```
+Note: we ask you to do this on the ICP Master node because you need to load the docker images into ICP.
+1. (You might need to authenticate using your github.com account.  If you don't have one, you can sign up for your free one here at `github.com`.)
+3. Change directory down into the FS-CIP-Microservices directory. You should see the following files:
+client, definitions, Dockerfile, env, LICENSE, manifest.yml, metadata-ng.json, package.json, package-lock.json, powered-by-LB-xs.png, README.md, server, supporting.
+
+
 3. Log into the ICP environment, thus:
  - Execute `sudo cloudctl login`.
  - Provide the password for student: **Passw0rd!**.
   - Ensure that the API Endpoint **https://mycluster.icp:8443** is specified (if a different API Endpoint is specified, execute `sudo cloudctl logout` and try again)
 	- Provide the ICP4I userID: **admin** with  password **admin**
+
 1. When prompted, choose the namespace context  **default**.
 
-4. Execute docker login into the ICP.
-   >`docker login mycluster.icp:8500`
-   >**username:** admin
-   >**password:** admin
+4. Execute the following to login into the ICP using Docker: `docker login mycluster.icp:8500`. When prompted, use username **admin** and password **admin**.
 
 5. The AcmeMart Microservice is already pre-configured, but we highly recommend to run the configuration yourself, if possible. Execute this command to delete the existing configuration: `kubectl delete namespace acmemartapi`
-6. Execute this command:  `docker build . -t acmemartutilityapi`.  The image and its dependencies will be downloaded.
-7. In the ICP UI, starting from the top left hamburger icon select `Manage` -> `Namespaces`.  Create a new namespace and call it `acmemartapi`.  Using the `ibm-anyuid-hostpath-psp` security policy is fine for this one.
+6. Execute this command:  `docker build . -t acmemartutilityapi`.  The image and its dependencies will be downloaded. This typically takes 2 to 8 minutes.
+7. Back on the Developer Machine, browse to the ICP Main Portal at `https://mycluster.icp:8443`. Starting from the top left hamburger icon select `Manage` -> `Namespaces`.  Create a new namespace and call it `acmemartapi`.  Specify the `ibm-anyuid-hostpath-psp` security policy for this namespace.
 8. Tag your new image by executing this command:  `docker tag acmemartutilityapi mycluster.icp:8500/acmemartapi/acmemartutilityapi:v1.0.0`
 9. Push the docker image out to your ICP instance by issuing this command `docker push mycluster.icp:8500/acmemartapi/acmemartutilityapi:v1.0.0`.
 10. Next step is to deploy the microservices into ICP.  Create a new Deployment in ICP using the UI via Hamburger Icon in top left. Go to `Workloads -> Deployments`.  Click `+Create Deployment`.
@@ -185,21 +191,21 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 	- TCP - 9093
 	- TCP - 443
 
-13. Click `Create`.  The new pod should be created very quickly.  You click on your release and view the results in the UI.
+13. Click `Create`.  The new pod should be created very quickly.  Click on the new deployment (**acememart**) and view the results in the UI.
     >**Note** you will not see a `Launch` button like you see in the screenshot until you complete the Service in the next section.
 
 	![](./images/cipdemo/deployment_done.gif)
 
 14. Once you see the Pod up, the next step is to bind a Network service that can be associated with the Pod.
-15. From the Hamburger menu on top left go to `Network Services` -> `Services`.
-16. Create a New Service.  Call it `acmemartapp`.
-17. Select the proper namespace - `acmemartapi`
-18. Under `Type` select from the dropdown `NodePort`
+15. From the Hamburger menu on top left go to `Network Access` -> `Services`.
+  - Create a New Service.  Call it `acmemartapp`.
+  - Select the proper namespace - `acmemartapi`
+  - Under `Type` select from the dropdown `NodePort`
 
 	![](./images/cipdemo/service3.gif)
 
-19. Under the `Labels` tab set the Label to `app` and value to `acmemart`.
-20. Under the `Ports` tab. Create 3 ports per the chart below:
+  - Under the `Labels` tab set the Label to `app` and value to `acmemart`.
+  - Under the `Ports` tab. Create 3 ports per the chart below:
 
     | Protocol  | Name         | Port | Target Port |
     |-----------|--------------|------|-------------|
@@ -214,7 +220,7 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 
 22. Under the `Selectors` tab.  Set the `Selector` to `app` and the Value to `acmemart`.
 23. Click Create and the service should create quickly.
-24. You will know the Service was generated properly when you return back to your deployment, and you see the `Launch` button in the upper right hand corner.
+24. Return to your list of deployments (`Workloads -> Deployments`), and you should see the `Launch` button in the far right of **acmemart**. This indicates that the Service was generated correctly.
 
 	![](./images/cipdemo/service_deployment_done_launch.gif)
 
