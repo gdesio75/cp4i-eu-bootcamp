@@ -59,7 +59,7 @@ You will normally access all of the individual components' portals from the ICP4
 * IBM App Connect Enterprise Portal running on `https://mycluster.icp/integration/instance/ace1`
 * IBM API Connect API Manager Portal on `https://mgmt.mycluster.icp.nip.io/manager`
 
-This lab's Skytap environment  consists of 6 different nodes,  5 of which are ICP Nodes. The 6th is a Developer Image, that you will use to perform nearly all of your work using command line and Firefox browser.
+This lab's Skytap environment  consists of 6 different nodes,  5 of which are ICP Nodes. The 6th is a Developer Machine, that you will use to perform nearly all of your work using command line and Firefox browser.
 
 A table with the Skytap environment configuration is provided below.  Credentials for each machine are `root`/`Passw0rd!`.
 
@@ -80,9 +80,9 @@ it is a good practice to shut down ICP before powering down your environment.  A
 - Having run `./icpStopStart stop`, you can  power down the Skytap environment safely using the `Power off` option. The shared storage can interfere with the normal "graceful shutdown" method.  We are not aware of `Power off` causing any problems.
 - If you find that your components (eg ACE or MQ or ES or API Connect) are not starting properly, and you have 30+ minutes to spare, you can execute `./icpStopStart.sh stop` from the Master Node when signed on as `root`.  When this script finishes, execute `./icpStopStart.sh start`.  Note that it can take around 30 minutes for ICP and all the ICP4I components to start completely.
 
-You can access the Master Node and the Developer Image directly via the sessions provided from the Skytap UI.  This is functional, but it is not intuitive to copy and paste into and out of Skytap, especially for the non X-Windows based environments.
+You can access the Master Node and the Developer Machine directly via the sessions provided from the Skytap UI.  This is functional, but it is not intuitive to copy and paste into and out of Skytap, especially for the non X-Windows based environments.
 
-As well as using the sessions provided by the Skytap UI, you could also SSH into the Master Node and the Developer Image.
+As well as using the sessions provided by the Skytap UI, you could also SSH into the Master Node and the Developer Machine.
  - You can find  the addresses for SSH in your Skytap Environment window under `Networking` and `Published services`.
  -The Published Services set up for you will be for the SSH Port (22) under the `CIP Master` node.  The published service will look something like `services-uscentral.skytap.com:10000`.
  - You can then SSH to the relevant image.
@@ -94,8 +94,12 @@ Password-less SSH has also been enabled between the Master Node and the other no
 
 1. If it is not done already, power up your Skytap environment.  It could take about 5 minutes for all nodes to start up.  The Master Node typically takes the longest to start, so if you can see, from the Skytap UI, the login prompt on the Master Node, then you can start to use the environment.
 1. The ICP infrastructure and all of the ICP4I components are configured to start when the environment starts. It typically takes around 30 minutes for all the components to be ready.
-8. You can tell if the ICP infrastructure is ready by going to the ICM Main Portal thus:
-	- On the Developer Image, start a Firefox browser, and navigate to the  ICP Main Portal at `https://mycluster.icp:8443`.  If you can log in using the credentials `admin/admin` and see the ICP Dashboard, then the ICP infrastructure is ready.
+8. You can tell if the ICP infrastructure is ready by going to the ICP Dashboard thus:
+ - On the Developer Machine, start a Firefox browser, and navigate to the  ICP Main Portal at `https://mycluster.icp:8443`.
+ - Log in using the credentials `admin/admin`.
+ - On the top right, click the hamburger and select `Dashboard`.
+
+ If you can see the ICP Dashboard, then the ICP infrastructure is ready.
 1. You can also tell if the ICP infrastructure is ready by trying to log into it from a command line, thus:
  - On the Master Node, start a Terminal session and execute `sudo cloudctl login`.
  - Provide the password for student: **Passw0rd!**.
@@ -106,7 +110,7 @@ Password-less SSH has also been enabled between the Master Node and the other no
 8. The best place to do your Kubernetes CLI work is from the Master Node. As shown above, before you can execute any of the `kubectl` commands you will need to execute `sudo cloudctl login` - this signs you in to the ICP infrastructure.
 
 Now you will access the ICP4I Platform Navigator. This is the UI that allows you to  create and manage instances of all of the components that make up ICP4I (in this lab: ACE, MQ, Event Streams and API Connect).
-1. On the Developer Image, start a Firefox browser, and navigate to the ICP4I Platform Navigator at `https://mycluster.icp/integration`.  To authenticate, use the ICP4I userID `admin` and password `admin`.
+1. On the Developer Machine, start a Firefox browser, and navigate to the ICP4I Platform Navigator at `https://mycluster.icp/integration`.  To authenticate, use the ICP4I userID `admin` and password `admin`.
 1. The Platform Navigator is designed for you to easily keep track of your integration components and artefacts.  Here you can see all of the various API Connect, Event Streams, MQ, Aspera and ACE instances you have running.  You can also use the Platform Navigator to add new instances.
 
 
@@ -270,13 +274,13 @@ Now you will generate a "Secret" object. This is a Kubernetes construct that let
 https://kubernetes.io/docs/concepts/configuration/secret/ )
 
 1. Prepare the PEM file you downloaded earlier.
- - On the Developer Image, open a "Files" session.
+ - On the Developer Machine, open a "Files" session.
  - Move the PEM certificate file that you downloaded from Event Streams earlier (probably called **es-cert.pem**) from _/home/student/Downloads_ to _/home/student/generateSecret_.
  - Rename this PEM certificate file in _/home/student/generateSecret_ to the following: **truststore-escert.crt** (yes, this means that it will no longer be a PEM file). Note: that this name structure must be of the form **truststore-ALIASNAME.crt**, where ALIASNAME will be generated as the alias for the certificate. Note down your specific  ALIASNAME (**escert**), because you will need to specify this later when deploying a BAR file.
 1. Go back to _/home/student/Downloads_, open the downloaded JSON file **es-api-key.json** in your favourite editor and copy the API key to the clipboard. Note: copy only the API Key, not the quotes around it.
 	![](./images/cipdemo/ace-copy-api-key.jpg)
 
-1. On the Developer Image, open a Terminal session.  Note that you will be signed in as _student_, and be in directory _/home/student/_.
+1. On the Developer Machine, open a Terminal session.  Note that you will be signed in as _student_, and be in directory _/home/student/_.
 1. Change to working directory  _/home/student/generateSecret_. This directory contains a tool called  _generatesecret.sh_, which will generate the Secret you need. It also contains some files that form input into that tool. This directory now also has your renamed PEM file (**truststore-escert.crt**) in it, which also forms input into the tool.
 1. Use either `gedit setdbparms.txt` or `vi setdbparms.txt` to edit the **_setdbparms.txt_** file.
     - Replace the characters `<over-write with API Key>` with the API key that you copied to the clipboard a moment ago. Note that this must be done accurately, otherwise the connection from ACE to Event Streams will not work. The content of the file should look like this:
@@ -437,7 +441,7 @@ You have now finished preparing the remote Queue Manager `mq`, to allow the MQ C
 
 The REST APIs within ACE, that form part of the overall solution, are mostly already written for you. You will now make changes to one of those REST APIs (namely the `orders` API) to make it put messages on MQ queues and publish a message to an Event Streams topic).
 
-1. On the Developer Image, go back to the Terminal session and navigate to directory _/home/student_.
+1. On the Developer Machine, go back to the Terminal session and navigate to directory _/home/student_.
 1. Start the Ace Toolkit by executing `sudo ./ace-11.0.0.3/ace toolkit`. Note that the ACE Toolkit may start as a tiny window on the screen. Use the cursor to grab the corner of this screen and expand it.
 
 	![](./images/cipdemo/ace-tiny-toolkit-start.jpg)
@@ -675,7 +679,7 @@ You have shown that MQ can be used as a mechanism for transmitting message infor
 Note also that the availability of the MQ Console makes examining messages on queues in this remote Queue Manager fairly easy.
 
 ### Review MQ Portion - ACE with MQ (Queue Manager **acemqserver**)
-To check that your use of cURL has caused the `orders` flow to correctly put messages onto the relevant MQ queue on the local Queue Manager (in the same pod as ACE), perform the following inside a Terminal Window on the Developer Image (signed in as _student_),
+To check that your use of cURL has caused the `orders` flow to correctly put messages onto the relevant MQ queue on the local Queue Manager (in the same pod as ACE), perform the following inside a Terminal Window on the Developer Machine (signed in as _student_),
 
 **Note:** that the local Queue Manager (called) **acemqserver**) is in the same pod as the Integration Server, and was created using a Helm Chart "ACE with MQ". Local queue managers created this way are intended for system use only (for internal ACE functions).
 
@@ -726,7 +730,7 @@ Create APIs for each of the inventory, order and AcmeMart APIs.
 
 **Note:** the Swagger for the two ACE flows can be imported as APIs using the `From Existing Open API Service` option in API Connect. The AcmeMart swagger can be downloaded from the main developer page and then imported.
 
-1.  Open up your API Manager Window inside the Developer Image - `https://mgmt.10.0.0.1.nip.io/manager`. The login should happen automatically as it will use your ICP credentials for login.
+1.  Open up your API Manager Window inside the Developer Machine - `https://mgmt.10.0.0.1.nip.io/manager`. The login should happen automatically as it will use your ICP credentials for login.
 2.  Click on the `Manage Catalogs`
 3.  Click on `Sandbox`
 4.  Click on `Settings` from left menu

@@ -30,6 +30,7 @@
   - Start the Ace Toolkit by executing `./ace-v11.0.0.3/ace toolkit`. (Note that the ACE Toolkit may start as a tiny window on the screen. Use the cursor to grab the corner of this screen and expand it.)
   - You should see these three applications: `Customer`, `orders` and `inventory`.
 
+1. Change bookmarks in browser to change _10.0.0.1_ to _mycluster.icp_.
 
 ## To be removed
   - ACE: all deployed BAR Files (Integration Servers, aka deployed Helm Resources) to be removed **except** for the _inventory_ one.
