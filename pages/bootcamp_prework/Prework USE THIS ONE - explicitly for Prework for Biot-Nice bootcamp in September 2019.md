@@ -11,7 +11,7 @@ applies_to: [developer,administrator,consumer]
 # Exploring the IBM Cloud Pak for Integration - Prework for Biot/Nice September 2019
 ----------------
 ---
-**IMPORTANT** This Lab Guide has been modified explictly for use as Prework for the Bootcamp in Biot/Nice in September 2019. Please follow instructions carefully.
+**IMPORTANT** This Lab Guide has been modified explicitly for use as Prework for the Bootcamp in Biot/Nice in September 2019. Please follow instructions carefully.
 
 ---
 
