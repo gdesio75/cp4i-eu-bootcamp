@@ -240,7 +240,7 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 11. In the `General` tab.  Give it a name of `acmemart`.  Select the new namespace created previous via the dropdown (`acmemartapi`). Leave Replicas at `1`.
 12. Go to `Container Settings`.  Set the name to `acmemartutility`.  Set the `Image` value to `mycluster.icp:8500/acmemartapi/acmemartutilityapi:v1.0.0`
 
-	![](./../../images/cipdemo/deployment2.gif)
+	![](./../../../../images/cipdemo/deployment2.gif)
 
 12. In the same tab, scroll down to where the TCP ports are.  We need to open up a few ports on this image such that it can interact with all components.  Set the ports to the following
 
@@ -251,7 +251,7 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 13. Click `Create`.  The new pod should be created very quickly.  You click on your release and view the results in the UI.
     >**Note** you will not see a `Launch` button like you see in the screenshot until you complete the Service in the next section.
 
-	![](./images/cipdemo/deployment_done.gif)
+	![](./../../images/cipdemo/deployment_done.gif)
 
 14. Once you see the Pod up, the next step is to bind a Network service that can be associated with the Pod.
 15. From the Hamburger menu on top left go to `Network Services` -> `Services`.
@@ -259,7 +259,7 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 17. Select the proper namespace - `acmemartapi`
 18. Under `Type` select from the dropdown `NodePort`
 
-	![](./images/cipdemo/service3.gif)
+	![](./../../images/cipdemo/service3.gif)
 
 19. Under the `Labels` tab set the Label to `app` and value to `acmemart`.
 20. Under the `Ports` tab. Create 3 ports per the chart below:
@@ -273,23 +273,23 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 
 21. Ports should look like the following when done:
 
-	![](./images/cipdemo/serviceports.gif)
+	![](./../../images/cipdemo/serviceports.gif)
 
 22. Under the `Selectors` tab.  Set the `Selector` to `app` and the Value to `acmemart`.
 23. Click Create and the service should create quickly.
 24. You will know the Service was generated properly when you return back to your deployment, and you see the `Launch` button in the upper right hand corner.
 
-	![](./images/cipdemo/service_deployment_done_launch.gif)
+	![](./../../images/cipdemo/service_deployment_done_launch.gif)
 
 25. Click the Launch button and from the dropdown, select the `app` button and it should launch the main portal for the AcmeMartUtils. If so, then your microservices for the demo has deployed successfully.
 26. The AcmeMart microservices comes with its own swagger based developer documentation.  From the main App screen, click on the `Developer Docs`.
 
-	![](./images/cipdemo/acmemart.gif)
+	![](./../../images/cipdemo/acmemart.gif)
 
 27. There are 3 categories of APIs here.  Click on the `Utility` apis.  From the list Select, the `GET /Utilities/ping` option
 28. Find the `try it out` button.  Click it.  It should return back the date/time.
 
-	![](./images/cipdemo/pingtest.gif)
+	![](./../../images/cipdemo/pingtest.gif)
 
 
 ## Prepare for Event Streams
@@ -303,7 +303,7 @@ Start by working with Event Streams, to create a topic and to define and capture
  - Open a browser session to the ICP4I Platform Navigator: `https://mycluster.icp/integration/`
  - Under `Messaging`, select the `es` link, to open the Event Streams Dashboard.
  - (If you see an error screen similar to that shown below, then simply select the `Open es` link in the middle.)
-		![](./images/cipdemo/open_es_error.jpeg)
+		![](./../../images/cipdemo/open_es_error.jpeg)
  - Provide or accept the credentials (Username **admin** Password **admin**) , then `Log In`.
 
 1. Now you are in the main Event Streams dashboard. Select the `Topics` tab and then `Create Topic`, to start creating a new topic:
@@ -319,7 +319,7 @@ Now you will create and extract Event Streams connection information, for use la
 
 1. Make a note of the value of the `bootstrap server`. (Store it in a temporary file, or just write it down.) Make sure you note it correctly, because you must specify this exactly in the ACE configuration later.
 1. Use the correct button to download the `PEM Certificate`. Save it in `/home/student/Downloads`.
-		![](./images/cipdemo/bootstrap-server-and-certificate.png)
+		![](./../../images/cipdemo/bootstrap-server-and-certificate.png)
 1. Use the section on the right to create an API key:
  - First `Name your application`. We recommend you specify **ordersFlow** here. This is used, within Event Streams, to report connections and activity, but it is not used further in this lab session.  You could specify ACE-Connection, or ACEorders, or anything else that identifies the connection for you.
  - Specify `Produce, consume and create topics`. Although in this lab session we ask you only to produce messages, specifying this allows you to extend the lab and do more later, if you want. In a Production system you could use this to restrict access.
@@ -341,7 +341,7 @@ https://kubernetes.io/docs/concepts/configuration/secret/ )
  - Move the PEM certificate file that you downloaded from Event Streams earlier (probably called **es-cert.pem**) from _/home/student/Downloads_ to _/home/student/generateSecret_.
  - Rename this PEM certificate file in _/home/student/generateSecret_ to the following: **truststore-escert.crt** (yes, this means that it will no longer be a PEM file). Note: that this name structure must be of the form **truststore-ALIASNAME.crt**, where ALIASNAME will be generated as the alias for the certificate. Note down your specific  ALIASNAME (**escert**), because you will need to specify this later when deploying a BAR file.
 1. Go back to _/home/student/Downloads_, open the downloaded JSON file **es-api-key.json** in your favourite editor and copy the API key to the clipboard. Note: copy only the API Key, not the quotes around it.
-	![](./images/cipdemo/ace-copy-api-key.jpg)
+	![](./../../images/cipdemo/ace-copy-api-key.jpg)
 
 1. On the Developer Image, open a Terminal session.  Note that you will be signed in as _student_, and be in directory _/home/student/_.
 1. Change to working directory  _/home/student/generateSecret_. This directory contains a tool called  _generateSecret.sh_, which will generate the Secret you need. It also contains some files that form input into that tool. This directory now also has your renamed PEM file (**truststore-escert.crt**) in it, which also forms input into the tool.
@@ -410,7 +410,7 @@ You define (and alter) artefacts using MQSC commands stored inside a Secret. The
 1. Use the ICP Portal to remove the existing **mq** Helm Release, and go to the ICP4I Platform Navigator to ensure that the **mq** instance has been deleted.
 
 1. From the ICP4I Platform Navigator, add a new Message Queue instance:
- ![](./images/cipdemo/ace-add-new-instance.jpg)
+ ![](./../../images/cipdemo/ace-add-new-instance.jpg)
      - Call it **mq**.
      - Specify namespace **mq**
      - Specify the `Secret name` as above (**mq-secret**).
@@ -426,11 +426,11 @@ After this new instance has been deployed, use the Web Console to check its conf
   - Point a browser session directly at the MQ Console: `https://mycluster.icp/integration/instance/mq`
 3. Click the Queue Manager name `mq` to highlight it. (This is the name of the Queue Manager already created in this pod). Select `Properties`.
 
-   ![](./images/cipdemo/ace-mq-properties.jpg)
+   ![](./../../images/cipdemo/ace-mq-properties.jpg)
 
 5. On the `Communication` tab, find the `CHLAUTH Records` property and make sure that it is set to `Disabled`.
 
-   ![](./images/cipdemo/ace-chlauth-disabled.jpg)
+   ![](./../../images/cipdemo/ace-chlauth-disabled.jpg)
 
 1. At the top right, click `Add Widget`, then select your Queue Manager `mq` and select the `Queues` widget.
  - In your new Queues widget, you should see your  queue called **NEWORDER.MQ**, of type  `local`.
@@ -453,11 +453,11 @@ The following instructions describe how to use the MQ Console to view and change
   - Point a browser session directly at the MQ Console: `https://mycluster.icp/integration/instance/mq`
 3. Click the Queue Manager name `mq` to highlight it. (This is the name of the Queue Manager already created in this pod). Select `Properties`.
 
-   ![](./images/cipdemo/ace-mq-properties.jpg)
+   ![](./../../images/cipdemo/ace-mq-properties.jpg)
 
 5. On the `Communication` tab, find the `CHLAUTH Records` property and make it `Disabled`.
 
-   ![](./images/cipdemo/ace-chlauth-disabled.jpg)
+   ![](./../../images/cipdemo/ace-chlauth-disabled.jpg)
 
 1. Don't forget to `Save` and then `Close`.
 
@@ -470,38 +470,38 @@ You will now add a new queue and a new channel. You will also change the MQ auth
   -  In your new Channels widget, click on `Create (+)` to create a new channel called **ACE.TO.mq**, of type `Server-connection`.
   - Having created it, click `ACE.TO.mq` to select it, and then click `Properties`.
   - On the MCA tab, for `MCA User ID` specify **mqm**. This forces this userID to be used when a connection is attempted. For this lab session it makes for an easy connection; in a Production environment more strict security should be applied.
-	![](./images/cipdemo/ace-specify-MCA.jpg)
+	![](./../../images/cipdemo/ace-specify-MCA.jpg)
   - You have just created a channel, which will be used by the MQ Client built into ACE Integration Server when its flows want to connect to this Queue Manager.
 1. At the top right, click `Add Widget` again, then select your Queue Manager `mq` and select the `Authentication Information` widget.
   -  In your new  Authentication Information widget, click on the cogwheel to configure the widget, and select `System objects` -> `Show`.
-	![](./images/cipdemo/ace-authinfo-cogwheel.jpg)
+	![](./../../images/cipdemo/ace-authinfo-cogwheel.jpg)
   - Click the system-provided Authinfo called `SYSTEM.DEFAULT.AUTHINFO.IDPWOS` and then click `Properties`.
   - On the `User ID + password` tab, for both `Local connections` and for  `Client connections` specify **None**.
-	![](./images/cipdemo/ace-idpwos.jpg)
+	![](./../../images/cipdemo/ace-idpwos.jpg)
   - Don't forget to `Save` and then `Close`.
   - Those **None** settings mean that the authentication of the client is not checked. For this lab session it makes for an easy connection; in a Production environment more strict security should be applied.
 1. Back on the Local Queue Managers widget, make sure the Queue Manager `mq` is selected, then click the ellipsis, click `Refresh Security...` and then select `Connection authentication`. This will make sure that the security changes you have just configured will now take effect.
 
-   ![](./images/cipdemo/ace-refresh-security.jpg)
+   ![](./../../images/cipdemo/ace-refresh-security.jpg)
 
 1. Your MQ Console should show your new widgets and your new artefacts, thus:
-   ![](./images/cipdemo/ace-mq-console-details.jpg)
+   ![](./../../images/cipdemo/ace-mq-console-details.jpg)
 
 ### Confirm MQ IP Port
 Finally, you will check which port the MQ Listener is listening on, thus:
 
 1. Within the MQ Console, add a new `Listeners` widget.
   -  In your new Listeners widget, click on the cogwheel to configure the widget, and select `System objects` -> `Show`.
-	![](./images/cipdemo/ace-authinfo-cogwheel.jpg)
+	![](./../../images/cipdemo/ace-authinfo-cogwheel.jpg)
   - You should see the system-provided Listener called `SYSTEM.LISTENER.TCP.1`. Make a mental note of the port for this listener (almost certainly it will be the MQ default of **1414**).
-	  ![](./images/cipdemo/ace-showing-listener.jpg)
+	  ![](./../../images/cipdemo/ace-showing-listener.jpg)
 1. In a browser session, navigate to the ICP Portal: https://mycluster.icp:8443.
   - Using the hamburger menu, navigate to `Workloads` -> `Helm releases`.
   - Click the `mq` release to open it.
   - Towards the bottom, you should see the Service called `mq-ibm-mq`, and under `PORT(S)` you should see the port mentally noted earlier (probably **1414**).
   - Write down the associated mapped port number, which will be **3xxxx**, as shown below:
 
-    ![](./images/cipdemo/ace-determine-mq-listener-port.jpg)
+    ![](./../../images/cipdemo/ace-determine-mq-listener-port.jpg)
 
 You have now identified that the queue manager `mq` is listening on port **1414** within its pod, and that this is mapped to the external port **3xxxx**. The latter number (**3xxxx**) is the one that you will need to specify when connecting to this Queue Manager.
 
@@ -515,17 +515,17 @@ The REST APIs within ACE, that form part of the overall solution, are mostly alr
 1. On the Developer Image, go back to the Terminal session and navigate to directory _/home/student_.
 1. Start the Ace Toolkit by executing `sudo ./ace-11.0.0.3/ace toolkit`. Note that the ACE Toolkit may start as a tiny window on the screen. Use the cursor to grab the corner of this screen and expand it.
 
-	![](./images/cipdemo/ace-tiny-toolkit-start.jpg)
+	![](./../../images/cipdemo/ace-tiny-toolkit-start.jpg)
 
 1. Make sure that you specify the correct workspace _/home/student/IBM/workspace_ as shown:
 
-    ![](./images/cipdemo/ace-select-workspace.jpg)
+    ![](./../../images/cipdemo/ace-select-workspace.jpg)
 
 1. You should see, in the Application Development window on the lefthand side, three REST APIs and their artefacts:
  - **Customer**, which this lab does not use
  - **orders**, which you are about to change and then deploy
  - **storeinventory**, which you will not change and is already deployed (as **inventory**)
-	 ![](./images/cipdemo/appl_dev_window.png)
+	 ![](./../../images/cipdemo/appl_dev_window.png)
 
 ### Modify the `orders` subflow
 
@@ -545,7 +545,7 @@ Here is what the **orders** subflow will eventually look like.   Detailed instru
 
 ---
 
- ![](./images/cipdemo/ace-orders-subflow-canvas.jpg)
+ ![](./../../images/cipdemo/ace-orders-subflow-canvas.jpg)
 
 These are the detailed instructions for modifying the ACE subflow.
 
@@ -555,14 +555,14 @@ These are the detailed instructions for modifying the ACE subflow.
 3. Select the `Http Header` node. Configure its properties thus:
  - On the `HTTPResponse` tab, select **Delete HTTP Header**.
 
-   ![](./images/cipdemo/ace-delete-httpheader.jpg)
+   ![](./../../images/cipdemo/ace-delete-httpheader.jpg)
 
 1. Select the [Biot/Nice] ~~first~~ only `MQOutput` node. Configure its properties thus:
   - For `Queue Name` specify **NEWORDER.MQ**. This is the queue onto which the message will be put. Note: in this instance we are hard-coding this queue name; typically it will be parameterised (for ACE specialists: this parameterisation uses _LocalEnvironment.Destination.MQ.DestinationData.queueName_).
   - For `Connection` select `Local queue manager`, because this is connection to the local Queue Manager (running inside the same pod that is also running ACE).
   - For `Destination queue manager` name specify **acemqserver** (case sensitive). This is the name of the local Queue Manager, which will be defined when this flow and its Integration Server and Queue manager are deployed . Note: in this lab we are hard-coding this Queue Manager name; typically it will be parameterised (using an MQ Policy).
 
-   ![](./images/cipdemo/ace-mqoutput.jpg)
+   ![](./../../images/cipdemo/ace-mqoutput.jpg)
 
 2. [Biot/Nice] Ignore this step because you do not have this second  `MQOutput1` node. Jump to the next step, to configure the `KafkaProducer` node.
    Select the second `MQOutput1` node. Configure its properties thus:
@@ -574,7 +574,7 @@ These are the detailed instructions for modifying the ACE subflow.
       - `Listener port number`: **3xxxx** - this must match the mapped port number that you determined earlier by looking at the Helm Release
       - `Channel name`: **ACE.TO.mq** (case-sensitive)- this must match the channel name that you created earlier by using the MQ Console
 
-   ![](./images/cipdemo/ace-mqoutput1.jpg)
+   ![](./../../images/cipdemo/ace-mqoutput1.jpg)
 
 3. Select the `KafkaProducer` node. Configure its properties thus:
 
@@ -585,7 +585,7 @@ These are the detailed instructions for modifying the ACE subflow.
    - For `Security Protocol` specify **SASL_SSL**. This is because Event Streams requires this.
    - For `SSL protocol` specify **TLSv1.2**. This is because Event Streams requires this.
 
-    ![](./images/cipdemo/ace_kafka_producer.png)
+    ![](./../../images/cipdemo/ace_kafka_producer.png)
 
 4. `Save` your flow.
 5. Create a BAR (Broker Archive) file in a project called **Barfiles**, thus:
@@ -611,7 +611,7 @@ In a DevOps environment, you would expect to configure and deploy the Helm Chart
  - Either go directly by opening a browser session to **https://mycluster.icp/ace-ace1**
  - Or start with the ICP4I Platform Navigator: **https://mycluster.icp/integration/**, and select `ace1`. Note: if this appears to fail as shown in the following screenshot, simply select `Open ace1` on the failure screen and it should work.
 
-	  ![](./images/cipdemo/open_ace_error.jpeg)
+	  ![](./../../images/cipdemo/open_ace_error.jpeg)
 
 
 2. On the ACE Dashboard, make sure you are on the Servers tab.
@@ -621,7 +621,7 @@ In a DevOps environment, you would expect to configure and deploy the Helm Chart
 	- Browse to _/home/student/IBM/workspace/BARfiles_, select the BAR file `orders.bar`, and `Continue`.
 	- You will be presented by the Add Server window, showing the `Content URL`, and the `namespace` **ace**.  The `Content URL` defines the location, in ICP terms, of where the BAR file is.
 
-		![](./images/cipdemo/ace-add-server.jpg)
+		![](./../../images/cipdemo/ace-add-server.jpg)
 
 		- Use the button to copy the contents of the `Content URL` to the clipboard, because you will need it shortly.
 		- The namespace **ace** is being proposed by ACE; you should make a mental note of it.
@@ -641,23 +641,23 @@ In a DevOps environment, you would expect to configure and deploy the Helm Chart
 	- For the `List of certificate aliases for the truststore`, specify **escert**. This is used by the Integration Server when it connects to Event Streams. You defined the value **escert** earlier, when you created the Secret.
 	- Note that you could also specify the `Integration Server name`. However, we recommend that you leave this blank, so that the Helm Chart name (**orders** in this case) is used.
 
-		![](./images/cipdemo/ace_hc_5.png)
-		![](./images/cipdemo/ace_hc_6b.png )
-		![](./images/cipdemo/ace_hc_8.png)
-		![](./images/cipdemo/ace-disable-persistence.jpg)
-		![](./images/cipdemo/ace_hc_9.png)
-		![](./images/cipdemo/ace_hc_10.png)
+		![](./../../images/cipdemo/ace_hc_5.png)
+		![](./../../images/cipdemo/ace_hc_6b.png )
+		![](./../../images/cipdemo/ace_hc_8.png)
+		![](./../../images/cipdemo/ace-disable-persistence.jpg)
+		![](./../../images/cipdemo/ace_hc_9.png)
+		![](./../../images/cipdemo/ace_hc_10.png)
 
 	- Leave the remaining settings as defaults and then click `Install` at the bottom.
 	- You should now  immediately see a whirling timer, and then the "Installation started" window, and your Helm Chart will now start to install.
 
-		![](./images/cipdemo/ace-installation-started.jpg)
+		![](./../../images/cipdemo/ace-installation-started.jpg)
 
 	> **Tip:** when you see the "Installation started" window, click on the little cross at the  top right to cancel only that window (see screenshot above). This will mean that your Helm Chart, with all the configuration you have just typed in, will remain in the browser. In turn, this means that, if something goes wrong during installation, you can a) easily check what parameters you typed and b) easily try the installation again.
 
 4. Note: if you don't see the "Installation started" window, and the deployment seems not to have started, then scroll to the top of the screen and you may see an error message.
 
-	![](./images/cipdemo/ace-ttext-error.png)
+	![](./../../images/cipdemo/ace-ttext-error.png)
 
 	If the error message is `t.text is not a function` (as shown above) then take the following steps to remove the `helm-api` pods. NB You could also use the ICP Console to do all of the above, if you feel more comfortable taking that route.
 	- In a Terminal session, execute `sudo cloudctl login`.
@@ -705,10 +705,10 @@ Now you will test each API, using cURL, before moving on.
 Note that in this section, you will be testing the APIs as exposed by ACE - the **inventory** one that was already deployed and the **orders** one that you have just modified and deployed. (Don't let the use of the word "API" confuse you - you are not yet touching the API Connect component of ICP4I.)
 
 1. Once deployed, your ACE Management UI should display both the `inventory` and `order` servers, as shown:
- ![](./images/cipdemo/appconnect.gif)
+ ![](./../../images/cipdemo/appconnect.gif)
 1. First, test the `inventory` API.
   - In the ACE Management UI, click down to the `inventory` API and write down or copy to the clipboard the unique value for `REST API Base URL` in your environment (eg **http://inventory.10.0.0.1.nip.io:3xxxx/storeinventory/v1**).:
- ![](./images/cipdemo/appconn_inventory_api.gif)
+ ![](./../../images/cipdemo/appconn_inventory_api.gif)
   - In the Terminal session, test the `inventory` flow, by using cURL to GET the information from the Base URL appended by the `/retrieve` operation, and specifying **46DA2599-CB6F-4FCC-A75F-D0E491AB6769.jpg** as the **key**, thus:
  ```
 curl -k http://inventory.10.0.0.1.nip.io:32041/storeinventory/v1/retrieve?key=46DA2599-CB6F-4FCC-A75F-D0E491AB6769.jpg
@@ -724,7 +724,7 @@ and ends thus:
 ```
 1. Now, test the `orders` API.
   - Back in the ACE Management UI, click into the `orders` server, and then into the `orders` API. You will see something that resembles the following. Write down or copy to the clipboard the unique value for `REST API Base URL` in your environment (eg **http://orders.10.0.0.1.nip.io:3xxxx/orders/v1**).
-  ![](./images/cipdemo/appconn_order_api.gif)
+  ![](./../../images/cipdemo/appconn_order_api.gif)
   - Back in the Terminal session, navigate to _/home/student_ and test the `orders` flow, by using cURL to POST the contents of the `order.json` file, to the Base URL appended by the `/create` operation, thus:
  ```
  curl -k -X POST http://orders.10.0.0.1.nip.io:3xxxx/orders/v1/create -d @order.json
@@ -751,9 +751,9 @@ To check that your use of cURL has caused the `orders` flow to correctly put mes
 
 1. You should see the MQ Console and the widgets that you added earlier.
 1. On the Queues widget, note that the queue depth should be non-zero. After each test, you can refresh this widget using the refresh button, and the queue depth should increase.
- ![](./images/cipdemo/ace-refresh-button.jpg)
+ ![](./../../images/cipdemo/ace-refresh-button.jpg)
 1. To see the content of a message, highlight the relevant queue, then click `Browse messages`.
- ![](./images/cipdemo/ace-browse-messages-UI.jpg)
+ ![](./../../images/cipdemo/ace-browse-messages-UI.jpg)
 
 At this point, you have shown that the Orders API has successfully put a message to the relevant queue on a remote Queue Manager. It is expected that a follow-on applications (or flow) will be written to get that message and take further actions.
 
@@ -790,13 +790,13 @@ To check that your use of cURL has caused the `orders` flow to correctly publish
  - Open a browser session to the ICP4I Platform Navigator: `https://mycluster.icp/integration/`
  - Under `Messaging`, select the `es` link, to open the Event Streams Dashboard.
  - (If you see an error screen similar to that shown below, then simply select the `Open es` link in the middle.)
-		![](./images/cipdemo/open_es_error.jpeg)
+		![](./../../images/cipdemo/open_es_error.jpeg)
  - Provide or accept the credentials (Username **admin** Password **admin**) , then `Log In`.
 1. Select the `Topics` tab.
 1. Click on the name of the only topic you should see there: `NewOrders`, to open that topic.
 1. Click on the `Messages` tab, to see all messages.
 1. Click on a message, and you will see a screen similar to the following:
-	  ![](./images/cipdemo/es-show-message.jpg)
+	  ![](./../../images/cipdemo/es-show-message.jpg)
 1. Note that as you run more tests and publish more messages to Event Streams, you can click `Next offset` to show further messages.
 
 At this point, you have shown the message generated by New Orders has been successfully published to an Event Streams topic. Other applications or flows could be written to subscribe to that message and take further actions.
@@ -819,22 +819,22 @@ Create APIs for each of the inventory, order and AcmeMart APIs.
 4.  Click on `Settings` from left menu
 5.  Click on `Gateway Services`
 6.  Ensure there is a gateway service assosiated with the Catalog
-![](./images/cipdemo/gatewayservices.jpg)
+![](./../../images/cipdemo/gatewayservices.jpg)
 7.  Click `Back`. From the API Manager homescreen, use the menu on the left to navigate to `Develop`.
 8.  On the APIs and Products screen browse over the `AcmeMartUtility` API
 9.  Click on the icon on the right, then click `Save as a new version`
 
-![](./images/cipdemo/newversion.jpg)
+![](./../../images/cipdemo/newversion.jpg)
 
 10. Type in version `1.0.1`
 
-![](./images/cipdemo/version101.jpg)
+![](./../../images/cipdemo/version101.jpg)
 
 11.  Select the new version of the API and click on it
 12.  Review the API configuration using the `Design` tab
 13.  Then click on the `Source` tab
 
-![](./images/cipdemo/apidefinition.jpg)
+![](./../../images/cipdemo/apidefinition.jpg)
 
 14.  Review the API definition to ensure the API was created properly, and then click the `Assemble` button on the top.
 
@@ -844,40 +844,40 @@ Create APIs for each of the inventory, order and AcmeMart APIs.
 
 Where `yourapp ip` and `your port` is the port that ICP has put your Utility App.
 
-![](./images/cipdemo/invoke.gif)
+![](./../../images/cipdemo/invoke.gif)
 
 14.  Click the `Play` button on the top to get to the built in test tool
 
 15. Activate your API by clicking on the `Activate API` button
 
-![](./images/cipdemo/activateapi.jpg)
+![](./../../images/cipdemo/activateapi.jpg)
 
 Test your APIs in the test tool inside of API Connect.
 
-![](./images/cipdemo/test_api.gif)
+![](./../../images/cipdemo/test_api.gif)
 
 If you see a CORS error, click on the link provided by the test tool and accept the certificate manually, as shown below:
 
-![](./images/cipdemo/cors.jpg)
+![](./../../images/cipdemo/cors.jpg)
 
 For the `AcmeMartUtilityAPI`, the quickest way to do this is open up the Assembly view of the AcmeMart and select the `/Utilities/Ping` API. It requires no arguments.
 
 Before:
 
-![](./images/cipdemo/test_acmemart_api1.gif)
+![](./../../images/cipdemo/test_acmemart_api1.gif)
 
 After:
 
-![](./images/cipdemo/test_acmemart_api2.gif)
+![](./../../images/cipdemo/test_acmemart_api2.gif)
 
 
 16. You may want to click on `Repeat` to invoke the API multiple times from the test tool
 
-![](./images/cipdemo/repeat.jpg)
+![](./../../images/cipdemo/repeat.jpg)
 
 Testing the `Inventory` API can be done in the Assembly view by using the following value as input for `key`: `AJ1-05.jpg`
 
-![](./images/cipdemo/store_inventory_assembly_test.gif)
+![](./../../images/cipdemo/store_inventory_assembly_test.gif)
 
 The orders flow can't be (easily) tested inside of the Assembly test view as it requires a json payload.  We will test this using the flow below.
 
@@ -886,11 +886,11 @@ Explore the assembly view and the policy palette on the left.
 
 15. Create an API Product. Go to `Develop`, `Add`, `Product`, `New Product`:
 
-![](./images/cipdemo/createproduct.jpg)
+![](./../../images/cipdemo/createproduct.jpg)
 
 16. Add your APIs to the Product, then click `Next`:
 
-![](./images/cipdemo/addapis.jpg)
+![](./../../images/cipdemo/addapis.jpg)
 
 17. The `Default` plan is automatically added, click `Next`
 
@@ -898,7 +898,7 @@ Explore the assembly view and the policy palette on the left.
 
 >**Note:** You can control the product visibility and subscribability at this step
 
-![](./images/cipdemo/publishproduct.jpg)
+![](./../../images/cipdemo/publishproduct.jpg)
 
 
 ## Test the entire flow
@@ -911,11 +911,11 @@ This part will show the following:
 + How to consume an API from a sample test application.
 
 1. Launch the Developer Portal from your bookmarks if you have the link saved, otherwise you  can obtain the Developer Portal URL from the API Manager. Go to your Catalog (eg. `Sandbox`), from the `Settings` menu select `Portal` to show the configuration. Copy the URL.
-![](./images/cipdemo/portalurl.jpg)
+![](./../../images/cipdemo/portalurl.jpg)
 
 2. Open a new browser tab and paste the URL to launch the Developer Portal (admin credentials for the Developer Portal are `admin/Passw0rd!`, developer credentials are `developer/Password!`). We will be using the `developer` account in the next steps
 
-![](./images/cipdemo/portal.png)
+![](./../../images/cipdemo/portal.png)
 
 3. Click the `API Products` link
 4. Log in with the Developer account for your portal. Remember that this account is different from the credentials you use to log in to API Management
@@ -924,25 +924,25 @@ This part will show the following:
 7. The App called `Mobile App` was already created for you. However feel free to create a new App if you want
 8. As the result, the application is now subscribed to the product and its credentials are registered to use the Product APIs.
 
-![](./images/cipdemo/appsubscription.jpg)
+![](./../../images/cipdemo/appsubscription.jpg)
 
 >In this section, you will use the Developer Portal to test the entire flow you created. This is useful for application developers to try the APIs before their application is fully developed or to simply see the expected response based on inputs they provide the API.
 
 Go back to the `API Product` page, click on the product you published in the previous section
 1. Click the logistics AcmeMartUtilityAPI 1.0.0 link on the product page
 
-![](./images/cipdemo/selectapi.jpg)
+![](./../../images/cipdemo/selectapi.jpg)
 
 2. Click the GET /Sneakers/identity method of the API path on the left-hand navigation menu
 
 3. Open `Environment Vesion Info` file located at the desktop and copy the Sample Data for Inventory API key from it
 4. Ensure you're using the app the app from the previous section to inkove the API:
 5. Paste the key to the `key` field:
-![](./images/cipdemo/portaltest.jpg)
+![](./../../images/cipdemo/portaltest.jpg)
 
 Example Output:
 
-![](./images/cipdemo/testoutput.jpg)
+![](./../../images/cipdemo/testoutput.jpg)
 
 Feel free to test other APIs and API methods using the Portal
 
