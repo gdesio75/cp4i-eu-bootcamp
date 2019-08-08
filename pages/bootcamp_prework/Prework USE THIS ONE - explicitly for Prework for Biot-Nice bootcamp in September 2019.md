@@ -240,7 +240,7 @@ In this section, you  will  download the AcmeMart microservices and deploy the c
 11. In the `General` tab.  Give it a name of `acmemart`.  Select the new namespace created previous via the dropdown (`acmemartapi`). Leave Replicas at `1`.
 12. Go to `Container Settings`.  Set the name to `acmemartutility`.  Set the `Image` value to `mycluster.icp:8500/acmemartapi/acmemartutilityapi:v1.0.0`
 
-	![](./../../../../images/cipdemo/deployment2.gif)
+	![](./../../images/cipdemo/deployment2.gif)
 
 12. In the same tab, scroll down to where the TCP ports are.  We need to open up a few ports on this image such that it can interact with all components.  Set the ports to the following
 
