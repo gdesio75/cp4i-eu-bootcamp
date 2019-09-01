@@ -913,7 +913,7 @@ This part will show the following:
 1. Launch the Developer Portal from your bookmarks if you have the link saved, otherwise you  can obtain the Developer Portal URL from the API Manager. Go to your Catalog (eg. `Sandbox`), from the `Settings` menu select `Portal` to show the configuration. Copy the URL.
 ![](./../../images/cipdemo/portalurl.jpg)
 
-2. Open a new browser tab and paste the URL to launch the Developer Portal (admin credentials for the Developer Portal are `admin/Passw0rd!`, developer credentials are `developer/Password!`). We will be using the `developer` account in the next steps
+2. Open a new browser tab and paste the URL to launch the Developer Portal (admin credentials for the Developer Portal are `admin/Passw0rd!`, developer credentials are `developer/Passw0rd!`). We will be using the `developer` account in the next steps
 
 ![](./../../images/cipdemo/portal.png)
 
